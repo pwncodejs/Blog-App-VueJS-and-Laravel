@@ -1,18 +1,11 @@
 <template>
-    <BlogForm
-    :is-edit="isEdit"
-    :loader="loader"
-    :formData="formData"
-    :errors="errors"
-/>
-
+  <BlogForm :is-edit="isEdit" :loader="loader" :formData="formData" :errors="errors" />
 </template>
 
 <script setup>
 
 import BlogForm from '../../components/blogs/BlogForm.vue';
-import { computed, onMounted, ref } from "vue";
-import { editBlog } from '../../http/blog-api';
+import { ref } from "vue";
 
 const errors = ref({});
 

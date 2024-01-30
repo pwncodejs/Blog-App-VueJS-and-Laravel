@@ -8,54 +8,37 @@
         <div class="card shadow-sm">
           <div class="card-header">
             <div class="row">
-              <div  class='col-6'>
+              <div class='col-6'>
                 <h3>Blogs List</h3>
               </div>
               <div class="col-6">
-                <router-link  :to="{name:'blogs.add'}" style="width: 150px" class="btn btn-warning mb-3 float-end">Add New</router-link>
+                <router-link :to="{ name: 'blogs.add' }" style="width: 150px" class="btn btn-warning mb-3 float-end">Add
+                  New</router-link>
               </div>
             </div>
           </div>
           <div class="card-body">
             <div class="row">
               <div class="mb-3 mt-3 col-9">
-                <label for ='show' class="form-check-inline">Show</label>
+                <label for='show' class="form-check-inline">Show</label>
                 <select id="show" @change="showPerPage" class="form-control form-check-inline" style="width: 50px;">
                   <option v-for="option in options" :value="option">{{ option }}</option>
                 </select>
               </div>
               <!-- Search input field -->
               <div class="mb-3 mt-3 col-3">
-                <input
-                type="search"
-                class="form-control float-end"
-                id="search"
-                v-model="searchQuery"
-                @input="filterBlogsBySearch"
-                style="width: 250px"
-                autocomplete="none"
-                placeholder="Search"
-                />
-             </div>
+                <input type="search" class="form-control float-end" id="search" v-model="searchQuery"
+                  @input="filterBlogsBySearch" style="width: 250px" autocomplete="none" placeholder="Search" />
+              </div>
 
             </div>
             <!-- Include the BlogTable component -->
-            <BlogTable
-              :filteredBlogs="filteredBlogs"
-              :currentPage="currentPage"
-              :totalPages="totalPages"
-              :prevPage="prevPage"
-              :nextPage="nextPage"
-              :gotoPage="gotoPage"
-              @show-delete-modal="showDeleteModal"
-            />
+            <BlogTable :filteredBlogs="filteredBlogs" :currentPage="currentPage" :totalPages="totalPages"
+              :prevPage="prevPage" :nextPage="nextPage" :gotoPage="gotoPage" @show-delete-modal="showDeleteModal" />
 
             <!-- Delete Modal Component -->
-            <DeleteModal
-              :deletePopup="deletePopup"
-              @hide-delete-modal="hideDeleteModal"
-              @confirm-delete="confirmDelete"
-            />
+            <DeleteModal :deletePopup="deletePopup" @hide-delete-modal="hideDeleteModal"
+              @confirm-delete="confirmDelete" />
           </div>
         </div>
       </div>
@@ -66,21 +49,18 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import {
-  editBlog,
   blogsBySearch,
 } from "../../http/blog-api.js";
 import DeleteModal from "../../components/modals/DeleteModal.vue";
 import BlogTable from "../../components/blogs/BlogTable.vue";
 import { useBlogStore } from "../../stores/blog";
 const store = useBlogStore();
-const { fetchAllBlogs,handleRemovedBlog } = store;
+const { fetchAllBlogs, handleRemovedBlog } = store;
 
 const blogs = ref([]);
 const options = [5, 10, 25]
 
 const successMessage = ref("");
-
-const blogId = ref("");
 
 const deletePopup = ref(false);
 const deleteBlogId = ref("");
@@ -118,15 +98,14 @@ const searchQuery = ref("");
 const filterBlogsBySearch = async () => {
   const query = searchQuery.value.toLowerCase();
 
-    const { data } = await blogsBySearch({ search: query });
-    blogs.value = data.data;
+  const { data } = await blogsBySearch({ search: query });
+  blogs.value = data.data;
 
 };
 
 //showperpage records
-
 const showPerPage = (e) => {
-    itemsPerPage.value = e.target.value
+  itemsPerPage.value = e.target.value
 }
 
 // Pagingnation

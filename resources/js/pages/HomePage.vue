@@ -17,7 +17,8 @@
                         <strong class="d-inline-block mb-2 text-primary">{{ blog.title }}</strong>
                         <div class="mb-1 text-muted">{{ blog.created_at }}</div>
                         <div class="mb-1 text-muted bg-light" v-html="blog.blog_content.slice(0, 500)"></div>
-                    <router-link :to="{ path : '/blog/' + blog.id}" class="stretched-link">Continue reading</router-link>
+                        <router-link :to="{ path: '/blog/' + blog.id }" class="stretched-link">Continue
+                            reading</router-link>
                     </div>
                 </div>
             </div>
@@ -25,7 +26,7 @@
                 <h3 class="no-blogs-title">No Blogs Yet</h3>
                 <p class="no-blogs-message">It looks like there are no blogs posted yet. Why not be the first to share your
                     thoughts, experiences, or insights?</p>
-                <router-link :to="{ name : 'login'}" class="start-blogging-button">Start Blogging Now</router-link>
+                <router-link :to="{ name: 'login' }" class="start-blogging-button">Start Blogging Now</router-link>
             </div>
 
         </div>
@@ -59,6 +60,7 @@ const store = useBlogStore();
 const { getAllBlogs } = store;
 const { blogs } = storeToRefs(store)
 
+//load all active blogs
 onMounted(async () => {
     await getAllBlogs()
     blogs.value = store.blogs;
@@ -121,9 +123,12 @@ input[type="search"] {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 5px 22px 2px, rgba(0, 0, 0, 0.3) 0px 3px 2px -3px;
 }
 
-img { max-height: 300px;width: 531px;}
+img {
+    max-height: 300px;
+    width: 531px;
+}
 
-.img-div{
+.img-div {
     display: flex;
     width: 531px;
     height: 300px;

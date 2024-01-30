@@ -5,31 +5,38 @@
                 <div class="card shadow sm">
                     <div class="card-body">
                         <h1 class="text-center">Login</h1>
-                        <hr/>
+                        <hr />
                         <form action="javascript:void(0)" class="row" method="post" @submit.prevent="handleSubmit">
 
                             <div class="form-group col-12">
-                                <label for="email" class="font-weight-bold" :class="{'is-invalid' : errors.username && errors.username[0] }">Username</label>
-                                <input type="text" v-model="form.username" name="username" id="username" class="form-control">
-                                <div class="invalid-feedback" v-if="errors.username && errors.username[0]">{{errors.username && errors.username[0]}}</div>
+                                <label for="email" class="font-weight-bold"
+                                    :class="{ 'is-invalid': errors.username && errors.username[0] }">Username</label>
+                                <input type="text" v-model="form.username" name="username" id="username"
+                                    class="form-control">
+                                <div class="invalid-feedback" v-if="errors.username && errors.username[0]">{{ errors.username
+                                    && errors.username[0] }}</div>
 
                             </div>
                             <div class="form-group col-12 my-2">
                                 <label for="password" class="font-weight-bold">Password</label>
-                                <input type="password" :class="{'is-invalid' : errors.password && errors.password[0] }" v-model="form.password" name="password" id="password" class="form-control">
-                                <div class="invalid-feedback" v-if="errors.password && errors.password[0]">{{errors.password && errors.password[0]}}</div>
+                                <input type="password" :class="{ 'is-invalid': errors.password && errors.password[0] }"
+                                    v-model="form.password" name="password" id="password" class="form-control">
+                                <div class="invalid-feedback" v-if="errors.password && errors.password[0]">{{ errors.password
+                                    && errors.password[0] }}</div>
                             </div>
                             <div class="col-12 mb-2">
-                                <button type="submit" :disabled="processing" @click="login" class="btn btn-primary btn-block">
+                                <button type="submit" :disabled="processing" @click="login"
+                                    class="btn btn-primary btn-block">
                                     {{ processing ? "Please wait" : "Login" }}
                                 </button>
 
                             </div>
                             <div class="col-12 text-center">
-                                <label>Don't have an account? <router-link :to="{name:'register'}">Register Now!</router-link></label>
+                                <label>Don't have an account? <router-link :to="{ name: 'register' }">Register
+                                        Now!</router-link></label>
                             </div>
                             <div class="col-12 text-center mt-4">
-                                <label><router-link :to="{name:'forgot_password'}">Forgot password?</router-link></label>
+                                <label><router-link :to="{ name: 'forgot_password' }">Forgot password?</router-link></label>
                             </div>
                         </form>
                     </div>
