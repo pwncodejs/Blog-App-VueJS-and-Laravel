@@ -30,6 +30,11 @@ npm install
 # generate a key for your application
 php artisan key:generate
 
+
+#link the storage
+php artisan storage:link
+
+
 # add the database connection config to your .env file
 
 #add domains in the SANCTUM_STATEFUL_DOMAINS in .env file if project is running on different port
