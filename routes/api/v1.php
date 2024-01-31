@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\UserController;
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::apiResource('/blogs', BlogController::class);
     Route::post('/blogs/blogsBySearch', [BlogController::class, 'blogsBySearch']);
+    Route::post('/blogs/all', [BlogController::class, 'allBlogs']);
 });
 
 

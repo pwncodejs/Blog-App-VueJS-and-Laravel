@@ -11,11 +11,12 @@ import {
 export const useBlogStore = defineStore("blogStore", () => {
 
     const blogs = ref([]);
-
+    const blog_meta  = ref([]);
     //Get All the Blogs
-    const fetchAllBlogs = async () => {
-        const { data } = await allBlogs();
+    const fetchAllBlogs = async (params) => {
+        const { data } = await allBlogs(params);
         blogs.value = data.data;
+        blog_meta.value = data.meta
     };
 
     const handleAddedBlog = async (newBlog) => {
@@ -40,6 +41,7 @@ export const useBlogStore = defineStore("blogStore", () => {
 
     return {
         blogs,
+        blog_meta,
         fetchAllBlogs,
         handleAddedBlog,
         handleUpdatedBlog,

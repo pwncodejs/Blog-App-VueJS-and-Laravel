@@ -4,7 +4,7 @@ const apiPath = import.meta.env.VITE_API_PATH;
 
 const resource = apiPath + "/blogs";
 
-export const allBlogs = () => api.get(resource);
+export const allBlogs = (params) => api.post(resource+'/all', params);
 
 export const blogsBySearch = (search) =>
     api.post(`${resource}/blogsBySearch`, search);

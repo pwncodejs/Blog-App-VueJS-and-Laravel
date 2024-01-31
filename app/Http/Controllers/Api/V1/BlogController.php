@@ -7,8 +7,8 @@ use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use App\Http\Resources\BlogResource;
 use App\Models\Blog;
-use Illuminate\Auth\Events\Validated;
-use URL;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class BlogController extends Controller
 {
@@ -28,6 +28,24 @@ class BlogController extends Controller
         })
             ->latest()
             ->get());
+    }
+
+    public function allBlogs(Request $request)
+    {
+
+        $user = auth()->user();
+        return BlogResource::collection(
+            Blog::where('user_id', $user->id)
+                ->where(function ($q) use ($request) {
+                    $q->when($request->search, function ($query) use ($request) {
+                        $query->where('title', 'LIKE', "%$request->search%");
+                        $query->orwhere('blog_content', 'LIKE', "%$request->search%");
+                        $query->orwhere('cover_photo', 'LIKE', "%$request->search%");
+                    });
+                })
+                ->latest()
+                ->paginate($request->pagesize)
+        );
     }
 
     /**
