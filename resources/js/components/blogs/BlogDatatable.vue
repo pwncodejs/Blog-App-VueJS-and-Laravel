@@ -114,11 +114,6 @@ const getBlogs = async () => {
 
         await fetchAllBlogs(params);
 
-        /* let blog_data = blogs.value.map((blog) => {
-            const { id, created_at, user_id, ...rest } = blog;
-            return { ...rest, action: 'some_action_value' };
-        });
- */
         rows.value = blogs.value;
         total_rows.value = blog_meta.value.total
 
