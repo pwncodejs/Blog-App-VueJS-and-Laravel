@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 use App\Models\User;
+use Exception;
 use Mail;
 use Hash;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\Mailer\Exception\TransportException;
 
 class ForgotPasswordController extends Controller
 {
@@ -31,18 +33,26 @@ class ForgotPasswordController extends Controller
 
           DB::table('password_reset_tokens')->where(['email'=> $request->email])->delete();
 
-          DB::table('password_reset_tokens')->insert([
-              'email' => $request->email,
-              'token' => $token,
-              'created_at' => Carbon::now()
-            ]);
+          try{
 
-          Mail::send('email.forgetPassword', ['token' => $token], function($message) use($request){
-              $message->to($request->email);
-              $message->subject('Reset Password');
-          });
+            Mail::send('email.forgetPassword', ['token' => $token], function($message) use($request){
+                $message->to($request->email);
+                $message->subject('Reset Password');
+            });
 
-          return response()->json(['success'=>'We have e-mailed your password reset link!',200]);
+            DB::table('password_reset_tokens')->insert([
+                'email' => $request->email,
+                'token' => $token,
+                'created_at' => Carbon::now()
+              ]);
+
+          }catch(Exception $e){
+
+            return response()->json(['unavailable'=>$e->getMessage()], 503);
+
+          }
+
+          return response()->json(['success'=>'We have e-mailed your password reset link!'],200);
       }
       /**
        * Write code on Method

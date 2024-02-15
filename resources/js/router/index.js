@@ -10,7 +10,6 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
     const store = useAuthStore();
-    await store.fetchUser();
     if (to.meta.auth && !store.isLoggedIn) {
         return {
             name: "homepage",

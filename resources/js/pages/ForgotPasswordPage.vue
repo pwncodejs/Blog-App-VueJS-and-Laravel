@@ -7,6 +7,7 @@
                         <h1 class="text-center">Forgot Password</h1>
                         <hr />
                         <div v-show="success" class="alert alert-success">We have e-mailed your password reset link!</div>
+                        <div v-show="errors.unavailable" class="alert alert-danger">We have facing issue for sending emails now, please try again later </div>
                         <form action="javascript:void(0)" class="row" method="post" @submit.prevent="handleSubmit">
 
                             <div class="form-group col-12">
@@ -56,8 +57,11 @@ const handleSubmit = async () => {
     processing.value = true;
     await handleForgotPassword(form)
     processing.value = false;
-    success.value = true;
-    form.email.value = '';
+
+    if(Object.keys(errors.value).length === 0){
+        success.value = true;
+        form.email = '';
+    }
 
 }
 </script>

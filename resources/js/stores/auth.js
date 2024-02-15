@@ -21,7 +21,7 @@ export const useAuthStore = defineStore("authStore", () => {
     const fetchUser = async () => {
         try {
             const { data } = await getUser();
-            user.value = data;
+            user.value =   data;
         } catch (error) {
             user.value = null;
         }
@@ -59,9 +59,13 @@ export const useAuthStore = defineStore("authStore", () => {
     const handleForgotPassword = async (user) => {
         try {
             await forgotPassword(user);
+            errors.value = {};
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 errors.value = error.response.data.errors;
+            }
+            if (error.response && error.response.status === 503) {
+                errors.value = error.response.data;
             }
         }
     };
@@ -81,4 +85,10 @@ export const useAuthStore = defineStore("authStore", () => {
         handleLogout,
         handleForgotPassword,
     };
-});
+
+},{
+    persist: {
+        enabled: true
+    }
+}
+);
